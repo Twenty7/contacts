@@ -1,0 +1,2 @@
+192.168.96.1 - - [18/Feb/2019:19:50:34 +0000] "GET / HTTP/1.1" 200 2372 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+192.168.96.1 - - [18/Feb/2019:19:50:34 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "http://contacts.local/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"

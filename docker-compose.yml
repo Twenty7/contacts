@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+
+  php:
+    image: twenty7/contacts-app:latest
+    build: ./
+    restart: always
+    volumes:
+      - ./docker/logs:/var/log
+      - ./:/var/www/contacts
+      # - ./public:/var/www/contacts/public
+    networks:
+      - contacts
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+    command: ["/bin/bash", "-c", "sed 's/NGINX_HOST/${NGINX_HOST}/g' /etc/nginx/conf.d/site.conf.tmp > /etc/nginx/conf.d/site.conf && nginx -g 'daemon off;'"]
+    volumes:
+      - ./:/var/www/contacts:ro
+      - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf.tmp
+      - ./docker/logs:/var/log/nginx
+    networks:
+      - contacts
+    depends_on:
+      - php
+      - mysql
+
+  mysql:
+    image: mysql
+    shm_size: '2gb'
+    restart: always
+    environment:
+      MYSQL_DATABASE: contacts
+      MYSQL_USER: contacts
+      MYSQL_PASSWORD: contacts
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - ./docker/db-data:/var/lib/mysql
+    networks:
+      - contacts
+
+networks:
+  contacts:
+    driver: bridge
