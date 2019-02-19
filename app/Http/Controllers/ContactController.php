@@ -3,13 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Contact;
+
 
 class ContactController extends Controller
 {
-    public function index()
+    private $columns = [
+        0 => 'id',
+        1 => 'first_name',
+        2 => 'last_name',
+        3 => 'email',
+        4 => 'phone',
+        5 => 'address',
+        6 => 'city',
+        7 => 'state',
+        8 => 'zip',
+    ];
+
+    public function index(Request $request)
     {
-        return Contact::all();
+        $contacts = DB::table('contacts');
+        $order = current($request->input('order'));
+        $length = $request->input('length');
+        $start = $request->input('start');
+        $search = $request->input('search');
+        $total_records = $contacts->count();
+        $filtered_count = $total_records;
+
+        // Add Criteria
+        if (!empty($search['value']) && !is_null($search['value'])) {
+            $val = app('db')->getPdo()->quote(strtolower("%{$search['value']}%"));
+            $contacts->whereRaw("lower(first_name) LIKE {$val}")
+                ->orWhereRaw("lower(last_name) LIKE {$val}")
+                ->orWhereRaw("lower(email) LIKE {$val}");
+            $filtered_count = $contacts->count();
+        }
+
+        // Add Pagination & Sorting
+        $contacts->orderBy($this->columns[$order['column']], $order['dir'])
+            ->offset($start)
+            ->limit($length);
+
+        return [
+            'recordsTotal' => $total_records,
+            'recordsFiltered' => $filtered_count,
+            'data' => $contacts->get(),
+        ];
     }
 
     public function show(Contact $contact)

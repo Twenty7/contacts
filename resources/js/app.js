@@ -39,7 +39,9 @@ $(document).ready(function() {
   $('#contacts-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '/list',
+    ajax: {
+      url: '/api/contacts'
+    },
     columns: [
       {data: 'id', name: 'id'},
       {data: 'first_name', name: 'first_name'},
