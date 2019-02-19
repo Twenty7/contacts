@@ -12,3 +12,5 @@ npm-debug.log
 yarn-error.log
 /docker/db-data
 /docker/logs
+/public/css/*
+/public/js/*

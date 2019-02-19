@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#yarn run encore production
+yarn && npm run production
 
 echo "Running PHP..."
 
