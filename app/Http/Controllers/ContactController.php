@@ -36,7 +36,12 @@ class ContactController extends Controller
             $val = app('db')->getPdo()->quote(strtolower("%{$search['value']}%"));
             $contacts->whereRaw("lower(first_name) LIKE {$val}")
                 ->orWhereRaw("lower(last_name) LIKE {$val}")
-                ->orWhereRaw("lower(email) LIKE {$val}");
+                ->orWhereRaw("lower(email) LIKE {$val}")
+                ->orWhereRaw("lower(phone) LIKE {$val}")
+                ->orWhereRaw("lower(address) LIKE {$val}")
+                ->orWhereRaw("lower(city) LIKE {$val}")
+                ->orWhereRaw("lower(state) LIKE {$val}")
+                ->orWhereRaw("lower(zip) LIKE {$val}");
             $filtered_count = $contacts->count();
         }
 
