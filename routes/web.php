@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('index');
 });
+
+
+Route::get('list', 'IndexController@index');
+Route::get('create', 'IndexController@create');
