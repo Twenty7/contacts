@@ -15,10 +15,11 @@ class ContactController extends Controller
         2 => 'last_name',
         3 => 'email',
         4 => 'phone',
-        5 => 'address',
-        6 => 'city',
-        7 => 'state',
-        8 => 'zip',
+        5 => 'dob',
+        6 => 'address',
+        7 => 'city',
+        8 => 'state',
+        9 => 'zip',
     ];
 
     public function index(Request $request)
@@ -38,6 +39,7 @@ class ContactController extends Controller
                 ->orWhereRaw("lower(last_name) LIKE {$val}")
                 ->orWhereRaw("lower(email) LIKE {$val}")
                 ->orWhereRaw("lower(phone) LIKE {$val}")
+                ->orWhereRaw("lower(dob) LIKE {$val}")
                 ->orWhereRaw("lower(address) LIKE {$val}")
                 ->orWhereRaw("lower(city) LIKE {$val}")
                 ->orWhereRaw("lower(state) LIKE {$val}")

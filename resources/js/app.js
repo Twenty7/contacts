@@ -48,10 +48,22 @@ $(document).ready(function() {
       {data: 'last_name', name: 'last_name'},
       {data: 'email', name: 'email'},
       {data: 'phone', name: 'phone'},
+      {data: 'dob', name: 'dob'},
       {data: 'address', name: 'address'},
       {data: 'city', name: 'city'},
       {data: 'state', name: 'state'},
-      {data: 'zip', name: 'zip'}
+      {data: 'zip', name: 'zip'},
+      {// Actions Column 
+        mRender: function(data, type, row) {
+          var linkEdit = '<a class="btn btn-secondary btn-sm" role="button" href="/contacts/edit/' + row.ID + '">Edit</a>';
+          var linkDelete = '<a class="btn btn-danger btn-sm" role="button" href="javascript://" data-id="' + row.ID + '">Delete</a>';
+          var cell = 
+            '<div class="btn-toolbar" role="toolbar">'
+            + linkEdit + " " + linkDelete
+            + '</div>';
+          return cell;
+        }
+      }
     ]
   });
 });

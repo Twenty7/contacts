@@ -9,10 +9,12 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Phone</th>
+        <th>Birth Date</th>
         <th>Address</th>
         <th>City</th>
         <th>State</th>
         <th>Zip</th>
+        <th>Actions</th>
       </tr>
     </thead>
   </table>
